@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <title>Notif example</title>
+  <script src="../vendor/mustache/mustache.js"></script>
+  <script src="../notif.js"></script>
+</head>
+<body>
+<h1>Notif example</h1>
+<p>This page will show a notification after 2 seconds, then hide it 5 seconds later.</p>
+<script type="text/javascript">
+  // show a notification 2 seconds after page load
+  window.setTimeout(function () {
+    var testNotif = new Notif({ text: 'This is a test message' });
+
+    // close it 5 seconds later
+    window.setTimeout(function () {
+      testNotif.close();
+    }, 5000);
+
+  }, 2000);
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-define(function () {
+var Notif = (function () {
   'use strict';
 
   function Notif (opts) {
@@ -7,13 +7,12 @@ define(function () {
     this.show();
   }
   Notif.prototype.render = function () {
-    var template = [
-      '<div class="notif-container">',
-        '<div class="notif-text">{{ text }}</div>',
-        '<div class="notif-close-btn"></div>',
-      '</div>'
-    ].join('');
     var notifEl = document.createElement('div');
+    notifEl.className = 'notif-container';
+    var template = [
+      '<div class="notif-text">{{ text }}</div>',
+      '<div class="notif-close-btn"></div>'
+    ].join('');
     notifEl.innerHTML = Mustache.render(template, {
       text: this.text
     });
@@ -33,4 +32,4 @@ define(function () {
   };
 
   return Notif;
-});
+}());
