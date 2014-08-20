@@ -5,7 +5,9 @@ var Notif = (function () {
     this.text = opts.text;
     this.target = document.body;
     this.show();
+    return this;
   }
+
   Notif.prototype.render = function () {
     var container = document.createElement('div');
     container.className = 'notif-container';
@@ -23,17 +25,20 @@ var Notif = (function () {
     container.appendChild(closeBtn);
     return container;
   };
-  Notif.prototype.show = function (opts) {
+
+  Notif.prototype.show = function () {
     this.notifEl = this.render();
     this.target.appendChild(this.notifEl);
-    if (opts && opts.duration > 0) {
-      window.setTimeout((function () {
-        this.close();
-      }).bind(this), opts.duration);
-    }
+    return this;
   };
-  Notif.prototype.close = function () {
-    this.target.removeChild(this.notifEl);
+
+  Notif.prototype.close = function (opts) {
+    if (opts && opts.duration > 0) {
+      window.setTimeout(this.close.bind(this), opts.duration);
+    } else {
+      this.target.removeChild(this.notifEl);
+    }
+    return this;
   };
 
   return Notif;

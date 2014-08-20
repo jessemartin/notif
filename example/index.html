@@ -7,17 +7,19 @@
 </head>
 <body>
 <h1>Notif example</h1>
-<p>This page will show a notification after 2 seconds, then hide it 5 seconds later.</p>
 <script type="text/javascript">
-  // show a notification 2 seconds after page load
+  // show a hello notification
+  var hello = new Notif({ text: 'Hello there!' });
+
+  // close it 5 seconds later
   window.setTimeout(function () {
-    var testNotif = new Notif({ text: 'This is a test message' });
+    hello.close();
+  }, 5000);
 
-    // close it 5 seconds later
-    window.setTimeout(function () {
-      testNotif.close();
-    }, 5000);
-
+  // say hello again 2 seconds after page load
+  window.setTimeout(function () {
+    // a more elegant way of closing a notification after a duration of time:
+    var helloAgain = new Notif({ text: 'Hello, again.' }).close({ duration: 5000 });
   }, 2000);
 </script>
 </body>
