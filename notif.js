@@ -7,18 +7,21 @@ var Notif = (function () {
     this.show();
   }
   Notif.prototype.render = function () {
-    var notifEl = document.createElement('div');
-    notifEl.className = 'notif-container';
-    var template = [
-      '<div class="notif-text">{{ text }}</div>',
-      '<div class="notif-close-btn">Close</div>'
-    ].join('');
-    notifEl.innerHTML = Mustache.render(template, {
-      text: this.text
-    });
-    var closeBtn = notifEl.getElementsByClassName('notif-close-btn')[0];
+    var container = document.createElement('div');
+    container.className = 'notif-container';
+
+    var textEl = document.createElement('div');
+    textEl.className = 'notif-text';
+    textEl.textContent = this.text;
+
+    var closeBtn = document.createElement('div');
+    closeBtn.className = 'notif-close-btn';
+    closeBtn.textContent = 'close';
     closeBtn.addEventListener('click', this.close.bind(this));
-    return notifEl;
+
+    container.appendChild(textEl);
+    container.appendChild(closeBtn);
+    return container;
   };
   Notif.prototype.show = function (opts) {
     this.notifEl = this.render();
