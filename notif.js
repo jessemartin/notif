@@ -11,20 +11,22 @@ var Notif = (function () {
     notifEl.className = 'notif-container';
     var template = [
       '<div class="notif-text">{{ text }}</div>',
-      '<div class="notif-close-btn"></div>'
+      '<div class="notif-close-btn">Close</div>'
     ].join('');
     notifEl.innerHTML = Mustache.render(template, {
       text: this.text
     });
+    var closeBtn = notifEl.getElementsByClassName('notif-close-btn')[0];
+    closeBtn.addEventListener('click', this.close.bind(this));
     return notifEl;
   };
-  Notif.prototype.show = function (duration) {
+  Notif.prototype.show = function (opts) {
     this.notifEl = this.render();
     this.target.appendChild(this.notifEl);
-    if (duration > 0) {
+    if (opts && opts.duration > 0) {
       window.setTimeout((function () {
         this.close();
-      }).bind(this), duration);
+      }).bind(this), opts.duration);
     }
   };
   Notif.prototype.close = function () {
